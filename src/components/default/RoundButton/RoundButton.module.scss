@@ -1,0 +1,11 @@
+@import '../../../index';
+
+button {
+    border: 1px solid $shade20;
+    border-radius: 50%;
+    background-color: #fff;
+    width: 56px;
+    height: 56px;
+    @include flex-center();
+    cursor: pointer;
+}
