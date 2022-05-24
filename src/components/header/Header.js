@@ -2,7 +2,8 @@ import styles from './Header.module.scss'
 import {TextField} from "../default/TextField/TextField";
 import filterIcon from '../../icons/filter.svg'
 import {RoundButton} from "../default/RoundButton/RoundButton";
-import { useEffect, useRef } from "react";
+import {useEffect, useRef, useState} from "react";
+import {FilterForm} from "../filter-form/FilterForm";
 
 export const Header = () => {
     const textFieldRef = useRef(null)
@@ -45,6 +46,8 @@ export const Header = () => {
         }
     }
 
+    const [isModalOpened, setIsModalOpened] = useState(false)
+
     return (
         <>
             <div className={styles.header_wrapper}>
@@ -53,12 +56,14 @@ export const Header = () => {
                     <p className={styles.header_desc}>Best Recipes for Best People</p>
                     <div className={styles.filter_container}>
                         <TextField placeholder={"Search"} className={styles.text_field} ref={textFieldRef} />
-                        <RoundButton src={filterIcon} />
+                        <RoundButton src={filterIcon} onClick={() => setIsModalOpened(true)} />
                     </div>
                 </div>
             </div>
 
             <div className={styles.image_wrapper} ref={imageRef}></div>
+
+            <FilterForm isModalOpened={isModalOpened} setIsModalOpened={setIsModalOpened} />
         </>
     )
 }

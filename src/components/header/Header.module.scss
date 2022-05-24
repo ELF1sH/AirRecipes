@@ -72,6 +72,9 @@
 @media (max-width: 400px) {
     .header_wrapper {
         .header_content {
+            h1 {
+                text-align: center;
+            }
             .filter_container {
                 justify-content: center;
                 .text_field {
@@ -81,5 +84,3 @@
         }
     }
 }
-
-

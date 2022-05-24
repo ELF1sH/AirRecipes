@@ -3,6 +3,7 @@ import {Card, CardContent, CardMedia, Chip, Typography} from "@mui/material";
 import useRipple from "use-ripple-hook";
 import colors from "../../scss__abstracts/_variables.scss";
 import { useNavigate } from "react-router-dom";
+import {useSelector} from "react-redux";
 
 export const RecipeCard = (props) => {
     const [ripple, event] = useRipple({
@@ -11,13 +12,7 @@ export const RecipeCard = (props) => {
     const navigate = useNavigate()
     const recipe = props.recipe
 
-    const getCookTime = (seconds) => {
-        if (seconds < 60) return `${seconds} sec`
-        const minutes = seconds / 60
-        if (minutes < 60) return `${minutes} min`
-        const hours = minutes / 60
-        return `${hours} hours`
-    }
+    const getCookTime = useSelector(state => state.recipeDetails.getCookTime)
 
     const handleClick = () => {
         navigate(`/recipe/${recipe.id}`)

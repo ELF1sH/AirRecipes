@@ -1,0 +1,32 @@
+@import "../../../../index";
+
+.brief_info {
+    display: flex;
+    flex-wrap: wrap;
+    .item {
+        display: flex;
+        margin-right: 32px;
+        margin-bottom: 8px;
+        &:last-child {
+            margin-right: 0;
+        }
+        .icon {
+            margin-right: 9px;
+        }
+        p {
+            &:first-letter {
+                text-transform: uppercase;
+            }
+        }
+    }
+}
+
+.easy {
+    color: $easy;
+}
+.medium {
+    color: $medium;
+}
+.hard {
+    color: $hard;
+}

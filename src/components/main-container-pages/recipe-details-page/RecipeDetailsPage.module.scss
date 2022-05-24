@@ -4,26 +4,44 @@
     display: flex;
     .flex_column {
         width: 50%;
+        &:first-child {
+            margin-right: 10px;
+        }
+        &:last-child {
+            margin-left: 10px;
+        }
+        .carousel {
+            width: 80%;
+        }
     }
 }
 
-.title {
-    margin-bottom: 16px;
-}
-.description {
+.mb16 {
     margin-bottom: 16px;
 }
 
-.brief_info {
-    display: flex;
-    .item {
-        display: flex;
-        .icon {
-            margin-right: 9px;
-        }
-        p {
-            &:first-letter {
-                text-transform: uppercase;
+.mb24 {
+    margin-bottom: 24px;
+}
+
+.mb32 {
+    margin-bottom: 32px;
+}
+
+.image {
+    width: 100%;
+}
+
+@media (max-width: 1000px) {
+    .flex_container {
+        flex-direction: column;
+        .flex_column {
+            width: 100%;
+            &:first-child {
+                margin-right: 0;
+            }
+            &:last-child {
+                margin-left: 0;
             }
         }
     }

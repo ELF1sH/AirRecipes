@@ -4,10 +4,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchRecipeDetails} from "../../../store/recipeDetailsSlice";
 import styles from './RecipeDetailsPage.module.scss'
 import {ProgressCircle} from "../../default/ProgressCircle/ProgressCircle";
-import caloriesIcon from '../../../icons/recipe-details-icons/caloriesIcon.svg'
-import { ReactComponent as DifficultyIcon } from '../../../icons/recipe-details-icons/difficultyIcon.svg'
-import cuisineIcon from '../../../icons/recipe-details-icons/cuisineIcon.svg'
-import timeIcon from '../../../icons/recipe-details-icons/timeIcon.svg'
+import {BriefInfoPanel} from "./brief-info-panel/BriefInfoPanel";
+import {BulletedList} from "../../default/BulletedList/BulletedList";
+import {Swiper, SwiperSlide} from "swiper/react";
+import {Pagination} from "swiper";
+import "swiper/css";
+import "swiper/css/pagination";
 
 export const RecipeDetailsPage = () => {
     const params = useParams()
@@ -28,17 +30,26 @@ export const RecipeDetailsPage = () => {
                 :
                 <div className={styles.flex_container}>
                     <div className={styles.flex_column}>
-                        <h2 className={styles.title}>{recipeDetails.title}</h2>
-                        <p className={styles.description}>{recipeDetails.description}</p>
-                        <div className={styles.brief_info}>
-                            <div className={styles.item}>
-                                <DifficultyIcon fill={"red"} stroke={"red"} className={styles.icon} />
-                                <p>{recipeDetails.difficulty}</p>
-                            </div>
-                        </div>
+                        <h2 className={styles.mb16}>{recipeDetails.title}</h2>
+                        <p className={styles.mb16}>{recipeDetails.description}</p>
+                        <BriefInfoPanel
+                            difficulty={recipeDetails.difficulty}
+                            cookTime={recipeDetails.cookTime}
+                            caloricity={recipeDetails.caloricity}
+                            cuisineTitle={recipeDetails.cuisine.title}
+                            className={styles.mb24}
+                        />
+                        <BulletedList header={"Ingredients"} items={recipeDetails.ingredients} className={styles.mb32} />
+                        <BulletedList header={"Instructions"} items={recipeDetails.instructions} countBullet className={styles.mb24} />
                     </div>
                     <div className={styles.flex_column}>
-
+                        <Swiper pagination={true} modules={[Pagination]} className={styles.carousel}>
+                            {
+                                recipeDetails.images.map((item, idx) =>
+                                    <SwiperSlide key={idx}><img src={item} alt="" style={{width: '100%'}} /></SwiperSlide>
+                                )
+                            }
+                        </Swiper>
                     </div>
                 </div>
             }

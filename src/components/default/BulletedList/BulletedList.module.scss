@@ -1,0 +1,59 @@
+@import "../../../index";
+
+.header {
+    margin-bottom: 16px;
+}
+
+ul {
+    list-style-type: none;
+    li {
+        margin-bottom: 8px;
+        margin-left: 8px;
+        position: relative;
+        p {
+            display: inline-block;
+        }
+        &::before {
+            content: '·';
+            display: inline-block;
+            font-weight: 800;
+            margin-right: 4px;
+            position: absolute;
+            left: -8px;
+        }
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+ol {
+    list-style-type: none;
+    li {
+        margin-bottom: 8px;
+        counter-increment: step-counter;
+        position: relative;
+        margin-left: 24px;
+        p {
+            display: inline-block;
+        }
+        &::before {
+            content: counter(step-counter);
+            border: 1px solid $shade20;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            @include flex-center();
+            font-family: 'Roboto', sans-serif;
+            font-size: 9px;
+            font-weight: 700;
+
+            position: absolute;
+            top: 3px;
+            left: -16px - 8px;
+        }
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
