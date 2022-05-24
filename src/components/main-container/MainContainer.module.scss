@@ -1,13 +1,14 @@
+@import '../../index.scss';
+
 .main_wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    padding-top: 50px;
+    padding-top: 60px;
+    padding-bottom: 20px;
     background-color: #fff;
-    .card {
-        width: 300px;
-        height: 200px;
-        border: 1px solid black;
-        margin: 4px;
-        background-color: #fff;
+    margin: 0 130px;
+}
+
+@media (max-width: 1700px) {
+    .main_wrapper {
+        margin: 0 20px;
     }
 }

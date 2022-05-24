@@ -1,0 +1,8 @@
+.grid_wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 348px);
+    grid-gap: 20px;
+    justify-content: center;
+    align-content: flex-start;
+}
+

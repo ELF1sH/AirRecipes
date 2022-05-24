@@ -43,7 +43,6 @@ export const Header = () => {
                 await sleep(1)
             }
         }
-
     }
 
     return (

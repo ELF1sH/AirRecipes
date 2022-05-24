@@ -1,0 +1,30 @@
+@import "../../../index";
+
+.flex_container {
+    display: flex;
+    .flex_column {
+        width: 50%;
+    }
+}
+
+.title {
+    margin-bottom: 16px;
+}
+.description {
+    margin-bottom: 16px;
+}
+
+.brief_info {
+    display: flex;
+    .item {
+        display: flex;
+        .icon {
+            margin-right: 9px;
+        }
+        p {
+            &:first-letter {
+                text-transform: uppercase;
+            }
+        }
+    }
+}

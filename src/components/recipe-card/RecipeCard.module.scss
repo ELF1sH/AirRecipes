@@ -1,0 +1,29 @@
+.card {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.14), 0 2px 1px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+}
+
+.card_content {
+    padding: 24px !important;
+    user-select: none;
+}
+
+.card_header {
+    margin-bottom: 8px;
+}
+
+.chips_container {
+    position: absolute;
+    height: 32px;
+    top: 196px - 32px - 16px;  // 32 is height, 16 is bottom margin
+    right: 16px;
+    .chip {
+        background-color: #fff;
+        font-size: 12px;
+        margin-left: 8px;
+        user-select: none;
+        cursor: pointer;
+    }
+}

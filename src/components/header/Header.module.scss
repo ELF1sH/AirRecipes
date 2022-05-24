@@ -1,9 +1,5 @@
 @import '../../index.scss';
 
-$horiz-indents-stage1: 320px;
-$horiz-indents-stage2: 160px;
-$horiz-indents-stage3: 98px;
-
 .header_wrapper {
     position: relative;
     .header_content {
@@ -31,7 +27,6 @@ $horiz-indents-stage3: 98px;
     background-position: right center;
 }
 
-
 @media (max-width: 1800px) {
     .header_wrapper {
         .header_content {
@@ -42,7 +37,7 @@ $horiz-indents-stage3: 98px;
 @media (max-width: 1200px) {
     .header_wrapper {
         .header_content {
-            left: 20px;
+            left: 60px;
         }
     }
 }
@@ -78,10 +73,9 @@ $horiz-indents-stage3: 98px;
     .header_wrapper {
         .header_content {
             .filter_container {
-                @include flex-center-column();
+                justify-content: center;
                 .text_field {
-                    margin-right: 0;
-                    margin-bottom: 8px;
+                    width: 70%;
                 }
             }
         }

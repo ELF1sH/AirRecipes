@@ -1,0 +1,8 @@
+@import '../../../index.scss';
+
+.progress {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    color: $shade50 !important;
+}
