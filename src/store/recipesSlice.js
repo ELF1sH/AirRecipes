@@ -20,11 +20,30 @@ const recipesSlice = createSlice({
     name: 'recipes',
     initialState: {
         recipes: [],
+        initialRecipes: [],
         cuisines: [],
         status: 'pending',
-        error: null
+        error: null,
+        filterState: {
+            calFilterMin: 100,
+            calFilterMax: 1200,
+            nameFilter: "",
+            cuisineFilter: []
+        }
     },
-    reducers: {},
+    reducers: {
+        setNameFilter: (state, action) => { state.filterState.nameFilter = action.payload },
+        applyFilter: (state) => {
+            if (state.filterState.nameFilter) {
+                state.recipes.recipes = state.initialRecipes.recipes.filter(x =>
+                    x.title.toUpperCase().includes(state.filterState.nameFilter.toUpperCase())
+                )
+            }
+            else {
+                state.recipes = state.initialRecipes
+            }
+        }
+    },
     extraReducers: {
         [fetchRecipes.pending]: (state, action) => {
             state.status = 'pending'
@@ -33,11 +52,15 @@ const recipesSlice = createSlice({
         [fetchRecipes.fulfilled]: (state, action) => {
             state.status = 'resolved'
             state.recipes = action.payload
+            state.initialRecipes = state.recipes
             for (const recipe of action.payload.recipes) {
                 if (state.cuisines.findIndex(x => x.id === recipe.cuisine.id) === -1) {
                     state.cuisines.push(recipe.cuisine)
                 }
             }
+            state.filterState.cuisineFilter = state.cuisines.map(item => {
+                return {id: item.id, status: true}
+            })
         },
         [fetchRecipes.rejected]: (state, action) => {
             state.status = 'rejected'
@@ -46,4 +69,5 @@ const recipesSlice = createSlice({
     }
 })
 
+export const { setNameFilter, applyFilter } = recipesSlice.actions
 export default recipesSlice.reducer

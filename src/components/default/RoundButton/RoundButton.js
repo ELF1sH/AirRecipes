@@ -8,7 +8,7 @@ export const RoundButton = (props) => {
     })
 
     return (
-        <button ref={ripple} onMouseDown={event} onClick={props.onClick}>
+        <button ref={ripple} onMouseDown={event} onClick={props.onClick} className={styles.btn}>
             <img src={props.src} alt="" draggable={false} />
         </button>
     )

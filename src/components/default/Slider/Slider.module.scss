@@ -1,0 +1,30 @@
+@import "../../../index";
+
+:global(.MuiSlider-valueLabelOpen) {
+    width: 30px;
+    height: 30px;
+    border-radius: 50% !important;
+    position: relative;
+    transform: rotate(180deg) translateY(65px) !important;
+    &:before {
+        display: none;
+    }
+    &:after {
+        content: "";
+        position: absolute;
+        top: -81%;
+        left: 50%;
+        border: 12.6px solid transparent;
+        border-bottom: 18.6px solid $shade50;
+        transform: translateX(-50%);
+    }
+    span {
+        transform: rotate(180deg) !important;
+        font-size: 12px;
+        font-weight: 400;
+    }
+}
+
+:global(.MuiSlider-thumbColorPrimary.Mui-active) {
+    box-shadow: 0 0 0 14px $shade20 !important;
+}

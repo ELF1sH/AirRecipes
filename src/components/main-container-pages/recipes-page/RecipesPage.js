@@ -3,7 +3,7 @@ import {CircularProgress} from "@mui/material";
 import {RecipeCard} from "../../recipe-card/RecipeCard";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {fetchRecipes} from "../../../store/recipesSlice";
+import {applyFilter, fetchRecipes} from "../../../store/recipesSlice";
 import {ProgressCircle} from "../../default/ProgressCircle/ProgressCircle";
 
 export const RecipesPage = () => {
@@ -13,6 +13,7 @@ export const RecipesPage = () => {
 
     useEffect(() => {
         dispatch(fetchRecipes())
+        dispatch(applyFilter())
     }, [])
 
     return (

@@ -4,6 +4,8 @@ import filterIcon from '../../icons/filter.svg'
 import {RoundButton} from "../default/RoundButton/RoundButton";
 import {useEffect, useRef, useState} from "react";
 import {FilterForm} from "../filter-form/FilterForm";
+import {useDispatch} from "react-redux";
+import {applyFilter, setNameFilter} from "../../store/recipesSlice";
 
 export const Header = () => {
     const textFieldRef = useRef(null)
@@ -47,6 +49,11 @@ export const Header = () => {
     }
 
     const [isModalOpened, setIsModalOpened] = useState(false)
+    const dispatch = useDispatch()
+    const nameTextFieldOnChange = (value) => {
+        dispatch(setNameFilter(value))
+        dispatch(applyFilter())
+    }
 
     return (
         <>
@@ -55,7 +62,7 @@ export const Header = () => {
                     <h1>Air Recipes</h1>
                     <p className={styles.header_desc}>Best Recipes for Best People</p>
                     <div className={styles.filter_container}>
-                        <TextField placeholder={"Search"} className={styles.text_field} ref={textFieldRef} />
+                        <TextField placeholder={"Search"} className={styles.text_field} ref={textFieldRef} onChange={nameTextFieldOnChange} />
                         <RoundButton src={filterIcon} onClick={() => setIsModalOpened(true)} />
                     </div>
                 </div>
