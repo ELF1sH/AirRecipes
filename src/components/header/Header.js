@@ -10,6 +10,7 @@ import {applyFilter, setNameFilter} from "../../store/recipesSlice";
 export const Header = () => {
     const textFieldRef = useRef(null)
     const imageRef = useRef(null)
+    const dispatch = useDispatch()
 
     const defInputTop = useRef(0)
     const defImageHeight = useRef(0)
@@ -21,8 +22,14 @@ export const Header = () => {
         defInputTop.current = rectInput.top + rectInput.height / 2
         defImageHeight.current = rectImage.height
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll)
         window.addEventListener('wheel', handleWheel)
+        window.addEventListener('keyup', handleKeyUp)
+        return () => {
+            window.removeEventListener('scroll', handleScroll)
+            window.removeEventListener('wheel', handleWheel)
+            window.removeEventListener('keyup', handleKeyUp)
+        }
     }, [])
 
     const handleScroll = () => {
@@ -49,10 +56,21 @@ export const Header = () => {
     }
 
     const [isModalOpened, setIsModalOpened] = useState(false)
-    const dispatch = useDispatch()
+    const searchValue = useRef("")
+
+    const handleKeyUp = event => {
+        if (event.key === 'Enter') {
+            dispatch(setNameFilter(searchValue.current.trim()))
+            dispatch(applyFilter())
+        }
+    }
+
     const nameTextFieldOnChange = (value) => {
-        dispatch(setNameFilter(value))
-        dispatch(applyFilter())
+        searchValue.current = value
+        if (!value) {
+            dispatch(setNameFilter(value))
+            dispatch(applyFilter())
+        }
     }
 
     return (
