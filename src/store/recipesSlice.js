@@ -1,4 +1,7 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, current} from "@reduxjs/toolkit";
+
+export const CAL_SLIDER_MIN_VALUE = 100
+export const CAL_SLIDER_MAX_VALUE = 1200
 
 export const fetchRecipes = createAsyncThunk(
     'recipes/fetchRecipes',     // redux toolkit names actions the same way
@@ -20,28 +23,53 @@ const recipesSlice = createSlice({
     name: 'recipes',
     initialState: {
         recipes: [],
-        initialRecipes: [],
-        cuisines: [],
         status: 'pending',
         error: null,
+
+        initialRecipes: [],
+        cuisines: [],
+
         filterState: {
-            calFilterMin: 100,
-            calFilterMax: 1200,
+            calFilter: [CAL_SLIDER_MIN_VALUE, CAL_SLIDER_MAX_VALUE],
+            nameFilter: "",
+            cuisineFilter: []
+        },
+        curFilterState: {
+            calFilter: [CAL_SLIDER_MIN_VALUE, CAL_SLIDER_MAX_VALUE],
             nameFilter: "",
             cuisineFilter: []
         }
     },
     reducers: {
-        setNameFilter: (state, action) => { state.filterState.nameFilter = action.payload },
-        applyFilter: (state) => {
+        setNameFilter: (state, action) => { state.curFilterState.nameFilter = action.payload },
+        setCuisineFilter: (state, action) => { state.curFilterState.cuisineFilter = action.payload },
+        setCalFilter: (state, action) => { state.curFilterState.calFilter = action.payload },
+        clearFilter: (state, action) => {
+            state.curFilterState.calFilter = [CAL_SLIDER_MIN_VALUE, CAL_SLIDER_MAX_VALUE]
+            state.curFilterState.cuisineFilter = state.cuisines.map(item => {
+                return {id: item.id, status: true}
+            })
+        },
+        resetCurFilterStateToFilterState: (state, action) => {
+            state.curFilterState = state.filterState
+        },
+        applyFilter: (state, action) => {
+            let recipes = current(state.initialRecipes).recipes
+            if (!recipes) return
+            state.filterState = state.curFilterState
+
             if (state.filterState.nameFilter) {
-                state.recipes.recipes = state.initialRecipes.recipes.filter(x =>
+                recipes = recipes.filter(x =>
                     x.title.toUpperCase().includes(state.filterState.nameFilter.toUpperCase())
                 )
             }
-            else {
-                state.recipes = state.initialRecipes
-            }
+
+            recipes = recipes.filter(x => x.caloricity >= state.filterState.calFilter[0] && x.caloricity <= state.filterState.calFilter[1])
+
+            const cuisinesIds = current(state.filterState).cuisineFilter.filter(x => x.status).map(x => x.id)
+            recipes = recipes.filter(x => cuisinesIds.includes(x.cuisine.id))
+
+            state.recipes = { recipes }
         }
     },
     extraReducers: {
@@ -58,7 +86,7 @@ const recipesSlice = createSlice({
                     state.cuisines.push(recipe.cuisine)
                 }
             }
-            state.filterState.cuisineFilter = state.cuisines.map(item => {
+            state.curFilterState.cuisineFilter = state.cuisines.map(item => {
                 return {id: item.id, status: true}
             })
         },
@@ -69,5 +97,5 @@ const recipesSlice = createSlice({
     }
 })
 
-export const { setNameFilter, applyFilter } = recipesSlice.actions
+export const { setNameFilter, setCuisineFilter, setCalFilter, clearFilter, applyFilter,resetCurFilterStateToFilterState } = recipesSlice.actions
 export default recipesSlice.reducer

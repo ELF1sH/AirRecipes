@@ -1,10 +1,16 @@
 import styles from './Slider.module.scss'
-import {useState} from "react";
+import {useEffect, useImperativeHandle, useState} from "react";
 import {Slider as MuiSlider} from "@mui/material";
 import colors from '../../../scss__abstracts/_variables.scss'
+import React from 'react'
 
-export const Slider = (props) => {
+export const Slider = React.forwardRef((props, ref) => {
     const [value, setValue] = useState(props.value)
+
+    useEffect(() => {
+        if (props.value && Array.isArray(props.value))
+        setValue(props.value)
+    }, [props.value])
 
     const handleChange = (event, newValue, activeThumb) => {
         if (!Array.isArray(newValue)) {
@@ -17,7 +23,17 @@ export const Slider = (props) => {
         } else {
             setValue([value[0], Math.max(newValue[1], value[0] + props.minDistance)]);
         }
+
+        props.onChange()
     };
+
+    useImperativeHandle(
+        ref,
+        () => ({
+            getState: () => {return value}
+        }),
+        [value]
+    )
 
     return (
         <MuiSlider
@@ -35,4 +51,4 @@ export const Slider = (props) => {
             className={props.className}
         />
     )
-}
+})

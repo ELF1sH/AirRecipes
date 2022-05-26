@@ -28,3 +28,6 @@
 :global(.MuiSlider-thumbColorPrimary.Mui-active) {
     box-shadow: 0 0 0 14px $shade20 !important;
 }
+:global(.MuiSlider-thumbColorPrimary) {
+    user-select: none;
+}

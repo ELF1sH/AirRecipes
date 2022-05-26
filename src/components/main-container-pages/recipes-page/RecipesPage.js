@@ -1,5 +1,4 @@
 import styles from './RecipesPage.module.scss'
-import {CircularProgress} from "@mui/material";
 import {RecipeCard} from "../../recipe-card/RecipeCard";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
@@ -9,11 +8,12 @@ import {ProgressCircle} from "../../default/ProgressCircle/ProgressCircle";
 export const RecipesPage = () => {
     const dispatch = useDispatch()
     const recipesState = useSelector(state => state.recipes)
-    console.log(recipesState)
 
     useEffect(() => {
-        dispatch(fetchRecipes())
-        dispatch(applyFilter())
+        if (!recipesState.recipes.recipes) {
+            dispatch(fetchRecipes())
+            dispatch(applyFilter())
+        }
     }, [])
 
     return (

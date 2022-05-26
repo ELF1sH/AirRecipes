@@ -1,5 +1,5 @@
 import styles from './RecipeCard.module.scss'
-import {Card, CardContent, CardMedia, Chip, Typography} from "@mui/material";
+import {Card, CardContent, CardMedia, Chip} from "@mui/material";
 import useRipple from "use-ripple-hook";
 import colors from "../../scss__abstracts/_variables.scss";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +19,7 @@ export const RecipeCard = (props) => {
     }
 
     return (
-        <Card sx={{ width: 348, height: 384 }} className={styles.card} ref={ripple} onMouseDown={event} onClick={handleClick}>
+        <Card className={styles.card} ref={ripple} onMouseDown={event} onClick={handleClick}>
             <CardMedia
                 draggable={false}
                 component="img"

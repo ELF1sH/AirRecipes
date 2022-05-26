@@ -16,7 +16,6 @@ export const RecipeDetailsPage = () => {
     const dispatch = useDispatch()
     const recipeDetailsState = useSelector(state => state.recipeDetails)
     const recipeDetails = recipeDetailsState.recipeDetails
-    console.log(recipeDetailsState)
 
     useEffect(() => {
         dispatch(fetchRecipeDetails({id: params.recipeId}))
